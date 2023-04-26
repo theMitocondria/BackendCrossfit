@@ -1,5 +1,6 @@
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
 import connectDatabase from "./database.js";
 import UserRouter from "./routes/userRoutes.js";
 import postRouter from "./routes/postRoutes.js";
@@ -12,10 +13,11 @@ import Order from "./models/order.js";
 import Stripe from "stripe";
 import TestimonialROuter from "./routes/testimonialRoutes.js";
 import improveRouter from "./routes/improveRoutes.js";
+import feedbackRouter from "./routes/feebackRoutes.js"
 dotenv.config()
 const app = express()
 connectDatabase();
-
+app.use(cors())
 app.use(express.static("public"));
 // app.use('/static', express.static('public'))
 
@@ -98,6 +100,7 @@ app.use("/api/v1", chatRouter)
 app.use("/api/v1", planRouter)
 app.use("/api/v1/testimonial", TestimonialROuter)
 app.use("/api/v1/improve", improveRouter)
+app.use("/api/v1", feedbackRouter);
 
 app.listen(process.env.PORT,  () => {
     console.log(`Port is running at ${process.env.PORT}`)

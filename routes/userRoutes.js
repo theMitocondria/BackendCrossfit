@@ -13,5 +13,4 @@ UserRouter.post("/avatar",isLoggedIn,upload.single('file'), avatarUpload);
 UserRouter.get("/myprofile",isLoggedIn,getMyProfile);
 UserRouter.post("/address",isLoggedIn,addShippingAddress);
 UserRouter.post("/logout",isLoggedIn,logout);
-
 export default UserRouter;

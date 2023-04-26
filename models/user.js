@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema({
     },
     avatar:{
         type:"String",
-        default:"https://cdn-icons-png.flaticon.com/512/709/709722.png"
+        default:"https://tse4.mm.bing.net/th?id=OIP.sgLTq2FcIF0kIT0VHDJRKAHaHa&pid=Api&P=0",
     },
     posts:[
         {
@@ -55,6 +55,7 @@ const userSchema = new mongoose.Schema({
       shippingAddress: {
         name: {
           type: String,
+          default:"qwertyui"
         },
        
         city: {
@@ -68,6 +69,7 @@ const userSchema = new mongoose.Schema({
         },
         country: {
           type: String,
+          default:"india"
         },
         phone: {
           type: String,

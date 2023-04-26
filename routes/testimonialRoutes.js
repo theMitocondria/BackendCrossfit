@@ -3,6 +3,6 @@ import { allTest, newTest } from "../controllers/testimonial.js";
 import isLoggedIn from "../middlewares/isloggedIn.js";
 const TestimonialROuter=express.Router();
 
-TestimonialROuter.post("/new",isLoggedIn,newTest);
+TestimonialROuter.post("/review/new",isLoggedIn,newTest);
 TestimonialROuter.get("/all",isLoggedIn,allTest);
 export default TestimonialROuter;

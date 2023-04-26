@@ -75,7 +75,7 @@ export const registerOtpVerify=async(req,res)=>{
         })
     }else{
 
-    if(user.otp === otp  && user.otpExpires>=new Date()){
+    if(user.otp.toString() === otp.toString()  && user.otpExpires>=new Date()){
         user.otp=null;
         user.otpExpires=new Date();
        
@@ -89,17 +89,17 @@ export const registerOtpVerify=async(req,res)=>{
         await tempUser.deleteMany({email:user.email});
         res.status(200).json({
             message:"working",
-            NewUser,
+            user:NewUser,
         })
     }else if(user.otpExpires<new Date()){
         await tempUser.deleteMany({email:user.email});
 
-        res.status(200).json({
+        res.status(500).json({
             message:"Otp expired pls renter the credentils",
             success:false,
         })
-    }else if(user.otp !== otp){
-        res.status(200).json({
+    }else if(user.otp.toString() !== otp.toString()){
+        res.status(500).json({
             message:"Re-enter the otp . the otp is wrong0",
             success:false,
         })
@@ -183,7 +183,7 @@ export const forgetPassword = async(req, res) => {
         user.resetPasswordTokenExpire=Date.now()+1000*60*10;
         
         await user.save();
-        const resetUrl=`${req.protocol}://${req.get("host")}/api/v1/reset/password/`+resetToken;
+        const resetUrl=`${req.protocol}://${req.get("host")}/reset/password/`+resetToken;
         
        await sendResetPasswordEmail(user.name,email, resetUrl);
         return res.status(200).json({
@@ -204,11 +204,10 @@ export const forgetPassword = async(req, res) => {
 export const resetPassword = async(req, res) => {
     try{
 
-        const {password}  = req.body;
-        const token = req.params.id;
-        console.log(token);
+        const {password,id}  = req.body;
+        console.log(`this is token ${id}`);
         const user = await User.findOne({
-            resetPasswordToken:token,
+            resetPasswordToken:id,
             resetPasswordTokenExpire: { $gt: Date.now() },
         })
 
@@ -323,6 +322,15 @@ export const addShippingAddress = async(req, res) => {
         const user =await User.findOne({token});
 
         const {shippingAddress} = req.body;
+        console.log(shippingAddress);
+        if(!shippingAddress){
+            res.status(500).json({
+                success:false,
+                message:"address not",
+                user,
+            })
+    
+        }
         user.shippingAddress = shippingAddress;
         user.hasShippingAddress = true;
         await user.save();

@@ -3,7 +3,7 @@ import User from "../models/user.js";
 
 export const newTest=async(req,res)=>{
     try {
-        const {captionDescription,rating}=req.body;
+        const {captionDescription,captionHeading}=req.body;
         const {token}=req.headers;
         const user=await User.findOne({token});
 
@@ -23,12 +23,13 @@ export const newTest=async(req,res)=>{
         const testimonial=await Testimonial.create({
             captionDescription,
             user:user._id,
-            rating
+            captionHeading
         });
 
         return res.status(200).json({
             message:"Made Successfully",
             success:true,
+            testimonial,
         })
     } catch (error) {
         return res.status(500).json({
