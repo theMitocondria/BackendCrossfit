@@ -25,7 +25,7 @@ export const sendEmail = async (
     subject: heading, // Subject line
     html: ` <div
     style="border:0.5px solid ;  border-radius: 12px; 
-    background-color: rgb(19, 59, 69); align-items:center; padding: 10px;">
+    background-color: rgb(0, 0, 0); align-items:center; padding: 10px;">
     <img style="height:60px; " src="https://res.cloudinary.com/dycitvrpg/image/upload/c_pad,b_auto:predominant,fl_preserve_transparency/v1681382796/logo_xx6npu.jpg" alt="Crossfit">
     <hr>
     <br>
