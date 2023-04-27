@@ -183,7 +183,7 @@ export const forgetPassword = async(req, res) => {
         user.resetPasswordTokenExpire=Date.now()+1000*60*10;
         
         await user.save();
-        const resetUrl=`${req.protocol}://${req.get("host")}/reset/password/`+resetToken;
+        const resetUrl=`https://crossfit-front.vercel.app/reset/password/`+resetToken;
         
        await sendResetPasswordEmail(user.name,email, resetUrl);
         return res.status(200).json({
