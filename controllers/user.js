@@ -289,6 +289,7 @@ export const avatarUpload = async(req, res) => {
         
         const {token} = req.headers;
         const user =await User.findOne({token});
+        console.log(req.file);
 
         const image = req.file.path;
         if(!image){
@@ -346,6 +347,40 @@ export const addShippingAddress = async(req, res) => {
         res.status(500).json({
             success:false,
             message:error.message
+        })
+    }
+}
+
+export const allusers = async( req, res) => {
+    try{
+        const users = await User.find({});
+        
+        res.status(200).json({
+            success:true,
+            users
+        })
+    }catch(error){
+        res.status(501).json({
+            success:false,
+            message:"chud gai"
+        })
+    }
+}
+
+export const singleuser = async( req, res) => {
+    try{
+        const {id} = req.body;
+        
+        const user = await User.findById(id).populate("posts");
+        
+        res.status(200).json({
+            success:true,
+            user
+        })
+    }catch(error){
+        res.status(501).json({
+            success:false,
+            message:"chud gai"
         })
     }
 }

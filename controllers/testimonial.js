@@ -29,7 +29,7 @@ export const newTest=async(req,res)=>{
         return res.status(200).json({
             message:"Made Successfully",
             success:true,
-            testimonial,
+            testimonial
         })
     } catch (error) {
         return res.status(500).json({
@@ -44,6 +44,7 @@ export const newTest=async(req,res)=>{
 export const allTest=async(req,res)=>{
     try {
         const test=await Testimonial.find().populate("user");
+        console.log(typeof(test));
 
         return res.status(200).json({
             message:"Made Successfully",

@@ -11,6 +11,8 @@ export const createPost = async(req, res) => {
        const image = req.file.path;
        const {token} = req.headers;
 
+       console.log(image);
+
        if(!captionHeading || !captionDescription || !image){
         return res.status(300).json({
             success:false,
@@ -105,7 +107,7 @@ export const allPosts = async(req, res) => {
 
 export const userPosts = async(req, res) => {
     try{
-        const user=await User.findOne({_id: req.params.id}).populate('posts');
+        const user=await User.findOne({_id: req.params.id}).populate("user");
         if(!user){
             return res.status(400).json({
                 success:false,
@@ -129,10 +131,12 @@ export const userPosts = async(req, res) => {
 export const myPosts = async(req, res) => {
     try{
         const user=await User.findOne({token: req.headers.token}).populate('posts');
+        console.log(user)
+
         const postToShow = user.posts.reverse();
         res.status(200).json({
             success:true,
-            postToShow,
+            postToShow:user,
         })
         
     }catch(error){

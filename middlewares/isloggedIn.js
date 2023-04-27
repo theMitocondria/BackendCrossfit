@@ -2,6 +2,7 @@ import User from "../models/user.js";
 
 const isLoggedIn= async(req,res, next)=>{
     const {token}=req.headers;
+    console.log(token);
     if(!token){
         res.status(401).json({
             success:false,
@@ -10,7 +11,7 @@ const isLoggedIn= async(req,res, next)=>{
     }else{
         const user = await User.findOne({token});
         if(!user){
-           return  res.status(401).json({
+           return  res.status(404).json({
                 success:false,
                 message:"unauthorizzed"
             });

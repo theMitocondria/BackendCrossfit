@@ -1,5 +1,5 @@
 import express from "express";
-import { addShippingAddress, avatarUpload, forgetPassword, getMyProfile, login, logout, register, registerOtpVerify, resetPassword } from "../controllers/user.js";
+import { addShippingAddress, allusers, avatarUpload, forgetPassword, getMyProfile, login, logout, register, registerOtpVerify, resetPassword, singleuser } from "../controllers/user.js";
 import isLoggedIn from "../middlewares/isloggedIn.js";
 import upload from "../config/fileUpload.js";
 const UserRouter=express.Router();
@@ -13,4 +13,6 @@ UserRouter.post("/avatar",isLoggedIn,upload.single('file'), avatarUpload);
 UserRouter.get("/myprofile",isLoggedIn,getMyProfile);
 UserRouter.post("/address",isLoggedIn,addShippingAddress);
 UserRouter.post("/logout",isLoggedIn,logout);
+UserRouter.get("/all", isLoggedIn, allusers)
+UserRouter.post("/singleuser", isLoggedIn, singleuser)
 export default UserRouter;
